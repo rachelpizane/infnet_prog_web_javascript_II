@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        table,th,td {
+            border: 2px solid black;
+            border-collapse: collapse;
+        }
+
+        tr, th, td{
+            padding: .5rem;
+        }
+
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Posição</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+    <script>
+
+        // Reforçando atividade aprendida
+        function escolherPosicao() {
+            let dominio = ["goleiro", "zagueiro", "lateral", "meio", "atacante"]
+            
+            let escolhas = "";
+            for(let i = 0; i < dominio.length; i++){
+                escolhas += (i + 1) + " - " + dominio[i] + "\n";
+            }
+            
+            let posicao = Number(prompt("Informe a posição:\n" + escolhas))
+            
+            return dominio[posicao - 1]
+        }
+
+        let qtdJogadores = 2;
+        let jogadores = [];
+        let posicoes = [];
+        
+        
+        for(let i = 0; i < qtdJogadores; i++){
+            
+            let nome = prompt("Informe o nome do jogador: ");
+            jogadores.push(nome)
+            
+            posicoes.push(escolherPosicao())
+        }
+   
+        let text = "";
+        for(let i = 0; i < qtdJogadores; i++){
+            text += 
+            "Jogador nº " + (i + 1) + ": \n" + 
+            "Nome: " + jogadores[i] + "\n" + 
+            "Posição: " + posicoes[i] + "\n\n";
+        }
+
+        // alert(text)
+        
+        
+        // Resolvi criar uma tabela a partir do Javascript:
+        function cellNome(i, newRow){
+
+        let newCell = document.createElement("td");
+
+        newCell.innerHTML = jogadores[i];
+        return newRow.appendChild(newCell);
+        }
+
+        function cellPosicoes(i, newRow){
+
+        let newCell = document.createElement("td");
+
+        newCell.innerHTML = posicoes[i];
+        return newRow.appendChild(newCell);
+        }
+
+        let table = document.querySelector("tbody");
+
+        for(let i = 0; i < qtdJogadores; i++){
+            let newRow = document.createElement("tr");
+            
+            cellNome(i, newRow);
+            cellPosicoes(i, newRow);
+            
+            table.appendChild(newRow);
+        }  
+    </script>
+</body>
+</html>

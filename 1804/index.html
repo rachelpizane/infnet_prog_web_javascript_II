@@ -3,39 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Vetores</title>
 </head>
 <body>
    <script>
-    //Vetor - função - estruturação de repetição
-    // Hoje será uma revisão
-    // sistema de cadastramento de jogadores
-    // informe quanto jogadores serão cadastrados
-    // recebe - nome do jogador e posição (1 - goleiro, 2 - zagueiro, 3 - lateral, 4 - meio-campo. 5 - atacante)
-    //goleiro, lateral, zagueiro, meia, atacante
-    // exibir o nome e a posição do jogador
-    // vetor para os nome um veto para as posições.
-    // for é bom quando você sabe que tem um numero determinado de repitição.
-    // trabalhar com dois vetores você precisa ter atenção ao indice.
-    // + ele fará mais eventos + trajer pra conversar + porfolio
-    // ele vai juntar com outra tumar
+    // Sistema de cadastramento de jogadores
+
+    /* 
+    - Informe quantos jogadores serão cadastrados
+    - Entrada: - nome do jogador e posição (1 - goleiro, 2 - zagueiro, 3 - lateral, 4 - meio-campo. 5 - atacante)
+    - Exibir o nome e a posição do jogador
+    - Faremos um vetor para cada informação (jogadores e posicoes) 
+    - for é bom quando você sabe que tem um numero determinado de repetição.
+    - Para trabalhar com dois vetores você precisa ter atenção se as informações estão armazenadas no mesmo índice.
+    */
+    
     function escolhaPosicao(){
         let dominio = ["goleiro", "zagueiro", "lateral", "meio", "atacante"] // fodaa
         
         let escolhas = ""
         for (let i = 0; i < dominio.length; i++){
             escolhas = escolhas + (1 + i)+ " - " + dominio[i] + "\n";
-        } // eu que criei yeeeee
+        } // implementei esse comando
 
         let posicao = Number(prompt("Digite posição do jogador:\n" + escolhas));
 
-        return dominio[posicao - 1] /// muito legal isso aquiii  
+        return dominio[posicao - 1] /// muito legal isso aqui 
     }
 
     let qtdJogadores = 2;
 
     let jogadoresTotal = [];
-    let posicaoTotal = []; // depois entendemos como juntar 
+    let posicaoTotal = [];
     
 
     for(let i = 0; i < qtdJogadores; i++){
@@ -52,28 +51,6 @@
     }
 
     alert(text)
-
-
-
-    // function cadastrarJogador(){
-    //     let nome = "João"
-    //     let posicao = 1;
-    //     qtdJogadores.push(nome)
-    //     posicoes.push(posicao)
-    // }
-
-    // do{
-    //     let opcao = 1
-    //     switch(opcao){
-    //         case 1:
-    //             alert("Jogador cadastrado com sucesso!")
-    //             alert("Jogador cadastrado com sucesso!")
-    //             break;
-    //         case 7:
-    //             alert("Saindo do programa...")
-    //     }
-    // } while (opcao != 7)
-    
    </script> 
 </body>
 </html>
