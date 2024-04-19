@@ -1,2 +1,27 @@
-# infnet_prog_web_javascript_II
- Exercícios da disciplina "Programação Web com JavaScript II" do Instituto Infnet.
+# Programação Web com JavaScript II | Infnet
+
+## 1. Introdução 📝
+
+Este repositório contém as atividades e comentários realizados em aula, além dos exercícios propostos nos livros indicados para a disciplina de **Programação Web com JavaScript II** no Instituto Infnet.
+<br>
+
+## 2. Status do projeto 🕜
+
+Em andamento
+<br>
+
+## 3. Overview 🌎
+
+### 3.1. Screenshot
+
+Em construção 🛠️
+
+## 4. Meu processo 🗺️
+
+### 4.1. Ferramentas/técnicas utilizadas
+
+Em construção 🛠️
+
+### 4.2. O que eu aprendi
+
+Em construção 🛠️
