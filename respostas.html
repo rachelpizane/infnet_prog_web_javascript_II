@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=script, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1 - A partir do index 3, remova 3 elementos
+        let valores = [2, 5, 3, 9, 6, 7, 1]
+        
+        valores.splice(3, 3)
+        console.log(valores)
+
+
+        console.log("---")
+        // 2 - Itere o vetor abaixo pelos valores
+        let valores2 = [2, 5, 3, 9, 6, 7, 1]
+        
+        for(i of valores2){
+            console.log(i)
+        }
+
+
+        console.log("---")
+        // 3 - Dê um exemplo utilizando o metodo forEach() e map() e informe qual é a diferença entre eles?
+        function somar(a){
+            console.log(a + a)
+        }
+
+        function somar2(a){
+            return a + a
+        }
+
+        valores2.forEach(somar)
+        console.log(valores2.map(somar2))
+
+
+        console.log("---")
+        // 4 - Transforme o vetor em uma string, onde a sepração é realizada pelo " - ";
+        let valores3 = [2, 5, 3, 9, 6, 7, 1]
+        console.log(valores3.join(" - "))
+    </script>
+</body>
+</html>

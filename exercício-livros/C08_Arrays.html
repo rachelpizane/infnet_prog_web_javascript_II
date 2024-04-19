@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C08 | Array</title>
+</head>
+<body>
+  <script>
+    /*
+    - Array é um tipo de objeto
+    - Nele conseguimos listar varios elementos em uma só variável.
+    - Cada elemento possui um index + valor 
+       - Elemento é a casa, index é a porta com um identificador e o valor é o conteudo dentro da casa
+    - Você consegue acessar qualquer dado pelo seu index
+    - Array possui seus propais prorpeidades e métodos
+    */
+
+   // Criando a Array
+   let array = [2, 6, "banana", true, 6];
+   // Também podemos adicionar um valor em uma array ja criada
+   let array2 = []
+   array2[0] = 3;
+   array2[1] = "oi";
+   array2[3] = "oi";
+   array2[2] = "oi";
+
+   // Propriedade .lenght -> Informar quantos itens tem no array.
+   console.log(array.length) // 4
+
+   // Toda .lenght retornará o valor do ultimo index + 1, pois o index inicia no 0, então se o ultimo elemento de uma array está no index 4, então seu .lenght retornará 5.
+
+   // Métodos mais comuns
+   console.log(array.concat(array2)) // .concat concatena arrays
+   
+   console.log(array.join(" - ")) // .join transforma a array em uma string, nela você pode colocar um argumento que sibstituirá o virgula entre os valores do vetor
+   
+   console.log(array.toString()) // .toString transforma a array em uma string é estritamente separa os elementos por virgula.
+   
+   console.log(array.indexOf(6) + " " + array.indexOf(false))// .indexof descobre qual é o index do argumento se o mesmo existir no vetor. Se não, ele retornará -1. Sua investigação começa do primeiro ao ultimo, ou seja, se o argumento indicado for um valo repetido, ele mostra o index do primeiro valor que aparecer. 
+
+   console.log(array.lastIndexOf(6)) // Parecido com o indexOf(), mas aqui ele investiga do ultimo ao primeiro.
+   
+   console.log(array.slice(2, 4)) // .slice() cria uma array a parte, apartir de dois argumentos. 1- nº do index que será iniciado. 2- nº do index que será finalizado, mas atenção, ele retorna um array até o valor do index anterior ao index de finalização.
+   
+   
+   array2.splice(1,2) // .splice, a partir de um index (1), você retira x elementos (2). 
+   // Cuidado, isso fará com que sua array se modifique, caso você não queria que isso aconteça, faça uma copia do sua array.
+   console.log(array2)
+
+   // Você também pode retirar para substituir.
+   let array3 = [2, "r", 5, 6]
+   
+   array3.splice(2,1,"rato")
+   console.log(array3.toString())
+
+   // Atividade
+   let sentence = ["JavaScript", "is", "a", "really", "cool", "language"];
+   sentence.splice(3,2)
+   console.log(sentence)
+   console.log("---\n")
+
+   // Como iterar atraves de Arrays -> métodos de repetição especificos para vetores.
+
+   function somar(a){
+    console.log(a + a + a);
+   }
+   array.forEach(somar) //forEach(); -: Faz com que o vetor aceite uma função como argumento. a função será rodado para cada valor, em ordem crescente
+
+   let valores = [2, 6,3, 4]
+   
+   function somar2(a){
+    return a + a;
+   }
+
+   console.log(valores.map(somar2)) // O metodo percorrer cada valor aplicando uma função chamada como argumento. Com o resultado da função, será criado um novo vetor.
+
+   for(let y of valores){
+    console.log(y) // Parecido com for-in, mas ele itera sobre os valores. // 2, 6, 3, 4
+   }
+
+   for(let y in valores){
+    console.log(y) // for-in itera pela chave do index // 0, 1, 2, 3
+   }
+
+   //SPREAD - Ajuda a expandir o seu vetor. É como se ela retirasse os colchetes e cada valor se tornasse um argumento unico.
+
+   let valor = [1, 3, ...valores, 10, 14] // Aqui estamos juntando valores de uma array em outra.
+   console.log(valor)
+
+   console.log(Math.min(...valor) + " " + Math.max(...valor))
+
+  </script>  
+</body>
+</html>

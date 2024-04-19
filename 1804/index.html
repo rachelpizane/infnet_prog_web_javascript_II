@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <script>
+    //Vetor - função - estruturação de repetição
+    // Hoje será uma revisão
+    // sistema de cadastramento de jogadores
+    // informe quanto jogadores serão cadastrados
+    // recebe - nome do jogador e posição (1 - goleiro, 2 - zagueiro, 3 - lateral, 4 - meio-campo. 5 - atacante)
+    //goleiro, lateral, zagueiro, meia, atacante
+    // exibir o nome e a posição do jogador
+    // vetor para os nome um veto para as posições.
+    // for é bom quando você sabe que tem um numero determinado de repitição.
+    // trabalhar com dois vetores você precisa ter atenção ao indice.
+    // + ele fará mais eventos + trajer pra conversar + porfolio
+    // ele vai juntar com outra tumar
+    function escolhaPosicao(){
+        let dominio = ["goleiro", "zagueiro", "lateral", "meio", "atacante"] // fodaa
+        
+        let escolhas = ""
+        for (let i = 0; i < dominio.length; i++){
+            escolhas = escolhas + (1 + i)+ " - " + dominio[i] + "\n";
+        } // eu que criei yeeeee
+
+        let posicao = Number(prompt("Digite posição do jogador:\n" + escolhas));
+
+        return dominio[posicao - 1] /// muito legal isso aquiii  
+    }
+
+    let qtdJogadores = 2;
+
+    let jogadoresTotal = [];
+    let posicaoTotal = []; // depois entendemos como juntar 
+    
+
+    for(let i = 0; i < qtdJogadores; i++){
+        let jogador = prompt("Digite nome do Jogador " + ( i +1 ) + ": ");
+        jogadoresTotal.push(jogador);
+        posicaoTotal.push(escolhaPosicao());
+    }
+
+
+    let text = ""
+    for(let i = 0; i < qtdJogadores; i++){
+        text = text + 
+        "Jogador nº " + (i + 1) + ": " + jogadoresTotal[i] + "\nPosição " + (i + 1) + ": " + posicaoTotal[i] + "\n\n";
+    }
+
+    alert(text)
+
+
+
+    // function cadastrarJogador(){
+    //     let nome = "João"
+    //     let posicao = 1;
+    //     qtdJogadores.push(nome)
+    //     posicoes.push(posicao)
+    // }
+
+    // do{
+    //     let opcao = 1
+    //     switch(opcao){
+    //         case 1:
+    //             alert("Jogador cadastrado com sucesso!")
+    //             alert("Jogador cadastrado com sucesso!")
+    //             break;
+    //         case 7:
+    //             alert("Saindo do programa...")
+    //     }
+    // } while (opcao != 7)
+    
+   </script> 
+</body>
+</html>
