@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vetores</title>
+</head>
+<body>
+   <script>
+    // Sistema de cadastramento de jogadores
+
+    /* 
+    - Informe quantos jogadores serão cadastrados
+    - Entrada: - nome do jogador e posição (1 - goleiro, 2 - zagueiro, 3 - lateral, 4 - meio-campo. 5 - atacante)
+    - Exibir o nome e a posição do jogador
+    - Faremos um vetor para cada informação (jogadores e posicoes) 
+    - for é bom quando você sabe que tem um numero determinado de repetição.
+    - Para trabalhar com dois vetores você precisa ter atenção se as informações estão armazenadas no mesmo índice.
+    */
+    
+    function escolhaPosicao(){
+        let dominio = ["goleiro", "zagueiro", "lateral", "meio", "atacante"] // fodaa
+        
+        let escolhas = ""
+        for (let i = 0; i < dominio.length; i++){
+            escolhas = escolhas + (1 + i)+ " - " + dominio[i] + "\n";
+        } // implementei esse comando
+
+        let posicao = 0;
+        do {
+            posicao = Number(prompt("Digite posição do jogador:\n" + escolhas));
+
+        } while(posicao < 1 || posicao > dominio.length);
+
+        return dominio[posicao - 1] /// muito legal isso aqui 
+    }
+
+    function impressao(jogadores){
+        
+        let text = ""
+        jogadores.forEach((func, index) => {
+            text = text + 
+            "Jogador nº " + (index + 1) + ": " + 
+            "\nNome: " + func.nome + 
+            "\nPosição: " + func.posicao + 
+            "\nCamisa: " + func.camisa +
+            "\nAno de nascimento: " + func.anoNascimento +
+            "\nSalário: R$ " + func.salario +
+            "\nSalário c/ Bônus: R$ " + func.salarioBonus +"\n\n";
+        });
+
+        alert(text)
+
+        //- func equivale a jogadores[i] no loop for abaixo.
+        // forEach irá aplicar a função callback em cada valor do vetor.Nao precisa definir um i que vai aumentar ate chegar o final do vetor (quase como se fosse um gambiarra)
+        // forEach substituirá o comando "for(let i = 0; i < jogadores.length; i++){..." Com ele leremos todos os valores do vetor, sem precisa definir um o inicio e o fim (jogadores.length).
+        /*
+        Sintaxe de ForEach: 
+
+        array.forEach((element, index, array) => {
+        Lógica a ser executada para cada elemento do array
+        });
+        () =>{}: Função de callback que será executado a cada elemento;
+        element(opcional) - elemento da array que será percorrido pela array
+        index(opcional) - retorna o index do array percorrido
+        array - retorna o array percorrido em si
+        */
+        // É como se o esse loop for abaixo fosse uma gambiarra pra ler os valores
+        
+        // let text = ""
+
+        // for(let i = 0; i < jogadores.length; i++){
+        //     text = text + 
+        //     "Jogador nº " + (i + 1) + ": " + 
+        //     "\nNome: " + jogadores[i].nome + 
+        //     "\nPosição: " + jogadores[i].posicao + 
+        //     "\nCamisa: " + jogadores[i].camisa +
+        //     "\nAno de nascimento: " + jogadores[i].anoNascimento +"\n\n";
+        // }
+
+        // alert(text)
+    }
+    function calcularIdade(anoNascimento){
+        let anoAtual = new Date().getFullYear()
+        return anoAtual - anoNascimento
+    }
+
+    function calcularBonusPorIdade(idade){
+        if(idade >= 0 || idade <= 20){
+            return 1;
+        } else if (idade > 40){
+            return 0.5;
+        } else {
+            return 2;
+        }
+    }
+
+    function calcularBonusPorPosicao(){
+        return 0;
+    }
+
+    function calcularSalarioBonus(salario, anoNascimento){
+        let bonusPosicao = salario * calcularBonusPorPosicao();
+        
+        let idade = calcularIdade(anoNascimento)// cada função teem q ter seu objetivo, por isso faremos uma otura função; aqui é so calculo de bonus, nao calculo de idade, então faremos outra função.
+        let bonusIdade = salario * calcularBonusPorIdade(idade);
+
+        return salario + bonusPosicao + bonusIdade;
+    }
+
+    let qtdJogadores = 1;
+
+    let jogadoresTotal = [];
+    let posicaoTotal = [];
+    let jogadores = []
+    
+
+    for(let i = 0; i < qtdJogadores; i++){
+        let nome = prompt("Digite nome do Jogador: ");
+        let posicao = escolhaPosicao()
+        let camisa = Number(prompt("Digite nº da camisa: "));
+        let anoNascimento = Number(prompt("Digite ano de nascimento: "));
+        let salario = parseFloat(prompt("Digite salário: "));
+        let salarioBonus = calcularSalarioBonus(salario , anoNascimento); // ele ta fazendo isso na impressao.
+
+        jogadores.push({nome, posicao, camisa, anoNascimento, salario, salarioBonus})
+    }
+    
+    impressao(jogadores)
+    
+    
+   </script> 
+</body>
+</html>
