@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        //1) .concat():
+        //Crie dois arrays diferentes e use o método .concat() para combiná-los em um único array.
+        let array1 = [1, 2, 3];
+        let array2 = [4, 5, 6];
+        console.log(array1.concat(array2))
+
+        //.join():
+        // Crie um array de strings e use o método .join() para criar uma única string concatenando todos os elementos do array com um separador específico.
+        let array3 = ["Eu", "gosto", "de", "chocolate"]
+        console.log(array3.join(" "))
+
+        // .toString():
+        // Crie um array de números e use o método .toString() para convertê-lo em uma string.
+        let array4 = [1, 2, 3, 9, 10];
+        console.log(array4.toString())
+
+        // .indexOf():
+        // Crie um array de números ou strings e use o método .indexOf() para encontrar a posição de um elemento específico no array.
+        let array5 = [11, 12, 13, 14, 15];
+        console.log(array5.indexOf(13))
+        console.log(array5.indexOf(16))
+
+        // .slice():
+        // Crie um array de elementos e use o método .slice() para criar uma cópia parcial do array, selecionando um intervalo específico de elementos.
+        let array6 = [11, 12, 13, 14, 15];
+        let array7 = array6.slice(1, 4)
+        console.log(array7)
+
+        // .splice():
+        // Crie um array de elementos e use o método .splice() para remover elementos do array em uma determinada posição e/ou adicionar novos elementos no lugar.
+        let array8 = [1, 2, 3, 9, 10];
+        console.log(array8.splice(2,2) + " Nova array:" + array8.join(" - "))
+
+        // .forEach():
+        // Crie um array de elementos e use o método .forEach() para iterar sobre cada elemento do array e realizar uma ação específica para cada elemento (por exemplo, imprimir cada elemento no console)
+        let array9 = [11, 12, 13, 14, 15];
+        array9.forEach(function(func, index){
+            console.log(index + ": " + func + " * " + func + " = " + (func * func))
+        })
+        //  */   
+    </script>
+</body>
+
+</html>

@@ -65,7 +65,7 @@
         index(opcional) - retorna o index do array percorrido
         array - retorna o array percorrido em si
         */
-        // É como se o esse loop for abaixo fosse uma gambiarra pra ler os valores
+        // É como se o esse "loop for" abaixo fosse uma gambiarra pra ler os valores
         
         // let text = ""
 
@@ -102,7 +102,7 @@
     function calcularSalarioBonus(salario, anoNascimento){
         let bonusPosicao = salario * calcularBonusPorPosicao();
         
-        let idade = calcularIdade(anoNascimento)// cada função teem q ter seu objetivo, por isso faremos uma otura função; aqui é so calculo de bonus, nao calculo de idade, então faremos outra função.
+        let idade = calcularIdade(anoNascimento)// cada função teem q ter seu objetivo, por isso faremos uma outra função; aqui é so calculo do bonus, nao calculo de idade, então faremos outra função.
         let bonusIdade = salario * calcularBonusPorIdade(idade);
 
         return salario + bonusPosicao + bonusIdade;
