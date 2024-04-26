@@ -17,6 +17,21 @@
     - for é bom quando você sabe que tem um numero determinado de repetição.
     - Para trabalhar com dois vetores você precisa ter atenção se as informações estão armazenadas no mesmo índice.
     */
+
+    function obterJogadores(){
+        let jogadores =[];
+
+        for(let i = 0; i < qtdJogadores; i++){
+            let nome = prompt("Digite nome do Jogador: ");
+            let posicao = escolhaPosicao()
+            let camisa = Number(prompt("Digite nº da camisa: "));
+            let anoNascimento = Number(prompt("Digite ano de nascimento: "));
+            let salario = parseFloat(prompt("Digite salário: "));
+
+            jogadores.push({nome, posicao, camisa, anoNascimento, salario})
+        }
+        return jogadores
+    }   
     
     function escolhaPosicao(){
         let dominio = ["goleiro", "zagueiro", "lateral", "meio", "atacante"] // fodaa
@@ -36,17 +51,19 @@
     }
 
     function impressao(jogadores){
-        
         let text = ""
+
         jogadores.forEach((func, index) => {
+            let salarioBonus = calcularSalarioBonus(func.salario , func.anoNascimento, func.posicao)
+
             text = text + 
             "Jogador nº " + (index + 1) + ": " + 
             "\nNome: " + func.nome + 
             "\nPosição: " + func.posicao + 
             "\nCamisa: " + func.camisa +
             "\nAno de nascimento: " + func.anoNascimento +
-            "\nSalário: R$ " + func.salario +
-            "\nSalário c/ Bônus: R$ " + func.salarioBonus +"\n\n";
+            "\nSalário: R$ " + (func.salario).toFixed(2) +
+            "\nSalário c/ Bônus: R$ " + salarioBonus.toFixed(2) +"\n\n";
         });
 
         alert(text)
@@ -80,13 +97,18 @@
 
         // alert(text)
     }
-    function calcularIdade(anoNascimento){
-        let anoAtual = new Date().getFullYear()
-        return anoAtual - anoNascimento
+
+    function calcularSalarioBonus(salario, anoNascimento, posicao){
+        let bonusPosicao = salario * calcularBonusPorPosicao(posicao);
+        
+        let idade = calcularIdade(anoNascimento)// cada função teem q ter seu objetivo, por isso faremos uma outra função; aqui é so calculo do bonus, nao calculo de idade, então faremos outra função.
+        let bonusIdade = salario * calcularBonusPorIdade(idade);
+
+        return salario + bonusIdade + bonusPosicao;
     }
 
     function calcularBonusPorIdade(idade){
-        if(idade >= 0 || idade <= 20){
+        if(idade >= 0 && idade <= 20){
             return 1;
         } else if (idade > 40){
             return 0.5;
@@ -95,40 +117,41 @@
         }
     }
 
-    function calcularBonusPorPosicao(){
-        return 0;
+    function calcularIdade(anoNascimento){
+        let anoAtual = new Date().getFullYear()
+        return anoAtual - anoNascimento
     }
 
-    function calcularSalarioBonus(salario, anoNascimento){
-        let bonusPosicao = salario * calcularBonusPorPosicao();
-        
-        let idade = calcularIdade(anoNascimento)// cada função teem q ter seu objetivo, por isso faremos uma outra função; aqui é so calculo do bonus, nao calculo de idade, então faremos outra função.
-        let bonusIdade = salario * calcularBonusPorIdade(idade);
+    function calcularBonusPorPosicao(posicao){
+        switch(posicao){
+            case "goleiro":
+                return .2
+                
+            case "zagueiro":
+            case "lateral":
+                return .15
 
-        return salario + bonusPosicao + bonusIdade;
+            case "meia":
+            case "atacante":
+                return .30
+
+            default:
+                return 0;
+        }
+  
     }
 
+    // Tela ----------
     let qtdJogadores = 1;
-
-    let jogadoresTotal = [];
-    let posicaoTotal = [];
-    let jogadores = []
-    
-
-    for(let i = 0; i < qtdJogadores; i++){
-        let nome = prompt("Digite nome do Jogador: ");
-        let posicao = escolhaPosicao()
-        let camisa = Number(prompt("Digite nº da camisa: "));
-        let anoNascimento = Number(prompt("Digite ano de nascimento: "));
-        let salario = parseFloat(prompt("Digite salário: "));
-        let salarioBonus = calcularSalarioBonus(salario , anoNascimento); // ele ta fazendo isso na impressao.
-
-        jogadores.push({nome, posicao, camisa, anoNascimento, salario, salarioBonus})
-    }
+    let jogadores = obterJogadores();
     
     impressao(jogadores)
     
-    
+    // Teste
+    // Tenha o hábito de testar seu programa, ele está funcionando?
+    // salario | ano nasicmento | posição | salario liquido
+    // 1000    |  46 anos       | goleiro | 1000 + 500 + 200 = 1700 (ok)
+    // 1854,36 |  24 anos       | lateral | 1854,36 + 3.708,72 + 278,154 = 5.841,234 (ok)
    </script> 
 </body>
 </html>

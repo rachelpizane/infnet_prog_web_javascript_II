@@ -8,19 +8,23 @@
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
+            color: rgb(56, 56, 56);
         }
 
         table {
             display: none;
+            margin-top: 1.5rem;
         }
 
         table,
         th,
         td {
-            border: 2px solid black;
+            border: 1px solid black;
             border-collapse: collapse;
-            width: 600px;
             text-align: center;
+            min-width: min-content;
+            width: 700px;
+            white-space:nowrap;
         }
 
         tr,
@@ -28,15 +32,36 @@
         td {
             padding: .5rem;
         }
+
+        th {
+            background-color: rgb(175, 173, 173);
+        }
     </style>
 </head>
 
 <body>
+
     <button id="btn" onclick="exibirTabela()">Gerar Relatório</button>
     <table id="tabela-relatorio"></table>
-    <script>
 
-        // Reforçando atividade aprendida
+    <script>
+         // Reforçando atividade aprendida
+        // Back end
+         function obterJogadores(){
+            let jogadores = []
+            for (let i = 0; i < qtdJogadores; i++) {
+            let nome = prompt("Informe o nome do jogador: ");
+            let posicao = escolherPosicao(dominio);
+            let camisa = Number(prompt("Informe o nº da camisa: [ " + nome + " ]"));
+            let anoNascimento = Number(prompt("Informe o ano de nascimento: [ " + nome + " ]"));
+            let salario = parseFloat(prompt("Informe o salário: [ " + nome + " ]"));
+            let salarioBonus = calularSalarioBonus(dominio, posicao, salario, anoNascimento);
+
+            jogadores.push({ nome, posicao, camisa, anoNascimento, salario, salarioBonus })
+            }
+            return jogadores;
+        }
+
         function escolherPosicao(dominio) {
             let escolhas = "";
             for (let i = 0; i < dominio.length; i++) {
@@ -52,7 +77,6 @@
         }
 
         function exibirRelatorio(jogadores) {
-
             let text = "";
             jogadores.forEach((func, index) => {
                 text +=
@@ -69,32 +93,34 @@
             alert(text)
         }
 
-        // Criar o cálculo de bônus por posição: goleiro ganha um aumento de 20%; zagueiro e lateral, de 15%; meia e atacante, de 30%.
+        function calularSalarioBonus(dominio, posicao, salario, anoNascimento) {
+            let bonusPosicao = salario * calcularBonusPosicao(posicao, dominio)
 
+            let idade = calcularIdade(anoNascimento)
+            let bonusIdade = salario * calcularBonusIdade(idade)
+
+            return salario + bonusPosicao + bonusIdade;
+        }
+       
+        // Criar o cálculo de bônus por posição: goleiro ganha um aumento de 20%; zagueiro e lateral, de 15%; meia e atacante, de 30%.
         function calcularBonusPosicao(posicao, dominio) { // Eu criei
-            // let dominio = ["goleiro", "zagueiro", "lateral", "meio", "atacante"]
             let opcao = dominio.indexOf(posicao) + 1;
 
             switch (opcao) {
                 case 1:
                     return .2;
-                    break;
                 case 2:
                 case 3:
                     return .15;
-                    break;
                 case 4:
                 case 5:
                     return .3;
-                    break;
+                default:
+                    return 0;
             }
         }
 
         //Criar o cálculo de bônus por idade: até 20 anos, 100%; acima de 40 anos, 50%; demais idades, 200%.
-        function calcularIdade(anoNascimento) {
-            return new Date().getFullYear() - anoNascimento
-        }
-
         function calcularBonusIdade(idade) {
             if (idade >= 0 && idade <= 20) {
                 return 1;
@@ -105,32 +131,12 @@
             }
         }
 
-        function calularSalarioBonus(dominio, posicao, salario, anoNascimento) {
-            let bonusPosicao = salario * calcularBonusPosicao(posicao, dominio)
-
-            let idade = calcularIdade(anoNascimento)
-            let bonusIdade = salario * calcularBonusIdade(idade)
-
-            return salario + bonusPosicao + bonusIdade;
+        function calcularIdade(anoNascimento) {
+            return new Date().getFullYear() - anoNascimento
         }
 
-        let dominio = ["goleiro", "zagueiro", "lateral", "meio", "atacante"]
-        let info = ["Nome", "Posição", "Camisa nº", "Ano Nascimento", "Salario", "Salario Bonus"]
-        let qtdJogadores = 1;
-        let jogadores = [];
-
-        for (let i = 0; i < qtdJogadores; i++) {
-
-            let nome = prompt("Informe o nome do jogador: ");
-            let posicao = escolherPosicao(dominio);
-            let camisa = 5;
-            let anoNascimento = Number(prompt("Informe o ano de nascimento: "));
-            let salario = parseFloat(prompt("Informe o salário: "));
-            let salarioBonus = calularSalarioBonus(dominio, posicao, salario, anoNascimento);
-
-            jogadores.push({ nome, posicao, camisa, anoNascimento, salario, salarioBonus })
-        }
-
+        
+        // DOM
         function exibirRelatorioWeb(info, jogadores) { // Fiz com o que o relatório fosse exibido na web.
             let tabela = document.getElementById("tabela-relatorio");
 
@@ -154,26 +160,41 @@
                 let celulaTabela;
                 for (j in jogadores[i]) {
                     celulaTabela = document.createElement("td");
-                    celulaTabela.innerHTML = jogadores[i][j];
+                    
+                    if(jogadores[i][j] === jogadores[i].salarioBonus || jogadores[i][j] === jogadores[i].salario){
+                        celulaTabela.innerHTML = "R$ " + (jogadores[i][j]).toFixed(2);
+                    } else {
+                        celulaTabela.innerHTML = jogadores[i][j];
+                    }
+
                     linhaTabela.appendChild(celulaTabela);
                 }
                 tabela.appendChild(linhaTabela);
             }
         }
 
-        exibirRelatorio(jogadores)
-        exibirRelatorioWeb(info, jogadores)
-
         function exibirTabela() { // Para ver o relatório, precisa clicar no "Gerar Relatório"
             let tabela = document.getElementById("tabela-relatorio");
 
-            if (tabela.style.display === "none") {
+            if (tabela.style.display !== "block") {
                 tabela.style.display = "block";
 
             } else {
                 tabela.style.display = "none";
             }
         }
+
+        
+        // TELA
+        let dominio = ["goleiro", "zagueiro", "lateral", "meio", "atacante"]
+        let info = ["Nome", "Posição", "Camisa nº", "Ano Nascimento", "Salario", "Salario Bonus"]
+        
+        let qtdJogadores = Number(prompt("Quantos jogadores você gostaria de cadastrar?"));
+        let jogadores = obterJogadores();
+
+        
+        exibirRelatorioWeb(info, jogadores)
+
 
     </script>
 </body>
