@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Cadastro de Disciplina</title>
+</head>
+
+<body>
+    <h1>Cadastro de disciplina</h1>
+    <form action="">
+        <div class="form-content">
+            <label for="">Disciplina:</label>
+            <input type="text" placeholder="Informe o nome da disciplina" id="disciplina" class="form-input">
+        </div>
+
+        <div class="form-content">
+            <label for="">Professor:</label>
+            <input type="text" placeholder="Informe o nome do professor" id="prof" class="form-input">
+        </div>
+
+        <div class="form-content">
+            <input type="button" value="Cadastrar" id="btn" class="form-btn">
+        </div>
+    </form>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Disciplina</th>
+            <th>Professor(a)</th>
+        </thead>
+        <tbody id="main-tabela"></tbody>
+    </table>
+
+    <script>
+        let disciplinas = [];
+
+        function incluir(nome, professor) {
+            let disciplina = {
+                id: disciplinas.length + 1,
+                nome: nome,
+                professor: professor,
+            }
+
+            disciplinas.push(disciplina);
+            incluirDisciplinaTabela();
+
+        }
+
+        function incluirDisciplinaTabela(){
+            let tabela = document.getElementById("main-tabela");
+            let novaLinha = document.createElement("tr");
+
+
+            let disciplina = disciplinas[disciplinas.length - 1];
+
+            for(j in disciplina){
+                let novaCelula = document.createElement("td");
+
+                novaCelula.innerHTML = disciplina[j];
+                novaLinha.appendChild(novaCelula)
+            }
+            tabela.appendChild(novaLinha);
+            
+        }
+  
+        function obterLista() { // Não estou utilizandp.
+            let text = "";
+
+            disciplinas.forEach((func) => {
+                text = text + `
+                ID: ${func.id}
+                Nome: ${func.nome}
+                Professor: ${func.professor}
+                ---------------------------`; // nao conheço muito o uso da crase' e do ${}, pesquisar sobre.
+            });
+            alert(text)
+        }
+
+   
+
+        // -------------------------------
+       
+        let btn = document.getElementById("btn");
+   
+        btn.addEventListener("click", () => {
+            let nome = document.getElementById("disciplina");
+            let professor = document.getElementById("prof");
+            
+            incluir(nome.value, professor.value)
+            
+            nome.value = "";
+            professor.value = "";
+        });
+    </script>
+</body>
+
+</html>
