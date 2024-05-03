@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #circle{
+            width: 70px;
+            height: 70px;
+            border: 2px solid black;
+            border-radius: 50%;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- faça um quadrado que mostra um valor aumentando de 1 em 1 até 100. -->
+    <div id="circle"></div>
+    <script>
+    // DECLERAÇÕES CONDICIONAIS
+    //IF
+        /*
+        if("condição for verdade...""){
+            "faça isso."
+
+        }else { "mas se nao for..."
+            "faça isso aqui"
+        }*/
+    let bol = true;
+    
+    if(!bol === false){ // !bol é o bol invertido, que é falso.
+        console.log("então é falso!!")
+    } else {
+        console.log("então é verdadeiro!!")
+    }
+
+    // OPERADOR DE COMPARAÇÃO
+    let preco = 12
+    if(preco < 12){
+        preco = preco * 0.9
+    } else {
+        preco = preco * 1.1
+    }
+    console.log(preco.toFixed(2));
+    // OPERADODE DE IGUALDADE
+    /* == e != comparando apenas os valore, não importando os seus tipos de dado. Já === e !== compara considerando o valor e seus tipos.*/
+
+    // SHORTER SINTAXE
+    let msg = !bol === false ? "então é falso!!" : "então é verdadeiro";
+    console.log(msg)
+    // MULTIPLAS COMPARAÇÕES
+    let temp = 56;
+
+    if(temp > 56){
+        console.log("quente!!");
+    } else if (temp < 56){
+        console.log("frio!!");
+    } else {
+        console.log("morno..");
+    }
+    // SWITCH - quando quiser comparar se é igual vários valores.
+    let color = "red";
+    switch(color){
+        case "yellow":
+            console.log("É amarelo!");
+            break;
+        case "red":
+            console.log("É vermelho!");
+            break;
+        case "blue":
+            console.log("É azul!");
+    }
+    // OPERADOR DE LOGICA (E - && | OU - ||)
+    let imc = 26
+    let tipo = "atletico"
+
+    if(imc >= 24.5 && imc <= 25.2 || tipo === "atletico"){
+        console.log("IMC OK!")
+    } else {
+        console.log("IMC RUIM...")
+    }
+
+    // ESTRUTURAS DE CONTROLE DE LOOP (E quando queremos que um comando se repita x?) 
+    // Os exemplos abaixo darão o mesmo resultado
+
+    // WHILE - "Enquanto a condição for verdade, excute o codigo abaixo"
+    let cont = 0;
+    let soma = 0;
+    while(cont <= 10){ // Enquanto cont for menou ou igual a 10, iremos executar o codigo abaixo.
+        soma += cont;
+        cont++
+    }
+    console.log(soma)
+    // DO.. WHILE - Bem parecido com o "WHILE", mas a diferença é que ele executa o codigo e depois confirma se ele deve ter repetido ou nao. 
+    
+    cont = 10
+    soma = 0;
+    do {
+        soma += cont
+        --cont
+    } while(cont != 0);
+    console.log(soma)
+
+    // FOR - Bem parecido com while, mas na propria condição conseguimos incluir o inicio, o fim e a contagem da condição.
+    
+    soma = 0;
+    for(i = 0; i <= 10; i++){ // o codigo será repetido a cada incrimento do i, até chegar a 10.
+        soma += i
+    } 
+    console.log(soma)
+
+    // FOR...IN - Loop destinado para percorrer o objeto.
+    let pessoa = {
+        nome: "Rachel",
+        idade: 26,
+    }
+    for(let i in pessoa){ // Não precisa se preocupar até onde ele vai, ele automaticamente lerá todos os valores.
+        console.log(i + ": " + pessoa[i])
+    } // hm... descobri que mesmo que possa usar com array, não é recomendado.
+
+    // Inserindo um delay na nossa pagina.
+    //Podemos utilizar os métodos do objeto window. setTimeOut() e setInterval()
+
+    //setTimeOut irá exercutar a função após o tempo definido em ms, uma unica vez.
+    setTimeout(()=>{
+        alert("O tempo acabou!!")
+    }, 10000)
+
+    // Já o setInterval() irá excutar a função após o tempo definido, infinitamente. Para desativá-la, você deverá usar o clearInterval();
+    let time = setInterval(()=>{
+        alert("Isso é um teste")
+    }, 5000)
+
+    clearInterval(time)
+    </script>
+</body>
+
+</html>
