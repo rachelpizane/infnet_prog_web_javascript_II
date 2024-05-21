@@ -11,31 +11,10 @@ function incluir(nome, professor, curso){
             this.nome = nome;
             this.professor = professor;
             this.curso = curso;
-            this.alterar = function(){
-                let opcao;
-                do {
-                    opcao = Number(prompt(`O que você deseja alterar?
-                    1 - Disciplina
-                    2 - Professor
-                    3 - Curso
-                    4 - Salvar Alterações`))
-                    switch(opcao){
-                        case 1:
-                            this.nome = prompt("Informe novo nome da disciplina");
-                            break;
-                        case 2:
-                            this.professor = prompt("Informe novo nome do professor");
-                            break;
-                        case 3:
-                            this.curso = prompt("Informe novo nome do curso");
-                            break;
-                        case 4:
-                            alert("Alterações salvas!")
-                            break;
-                        default: 
-                        alert("Escolha um opção válida")   
-                    }
-                }while(opcao != 4);
+            this.alterar = function(novoNome, novoProfessor, novoCurso){
+                this.nome = novoNome;
+                this.professor = novoProfessor;
+                this.curso = novoCurso;
             };
             this.ativo = true;
         }
@@ -50,6 +29,7 @@ function excluir(i){
 }
 
 function atualizarTabela(){
+    let sectionTabela = document.getElementById("section-tabela");
     let tabela = document.getElementById("main-tabela");
     
    tabela.innerHTML =""; 
@@ -73,21 +53,24 @@ function atualizarTabela(){
             
         }
         tabela.appendChild(novaLinha);
-    });    
+    });  
+    if(tabela.innerHTML !== ""){
+        sectionTabela.style.display = "block"
+    }  
 }
 
-function obterLista() { // Não estou utilizandp.
-    let text = "";
+// function obterLista() { // Não estou utilizandp.
+//     let text = "";
 
-    disciplinas.forEach((func) => {
-        text = text + `
-        ID: ${func.id}
-        Nome: ${func.nome}
-        Professor: ${func.professor}
-        ---------------------------`; // nao conheço muito o uso da crase' e do ${}, pesquisar sobre.
-    });
-    alert(text)
-}
+//     disciplinas.forEach((func) => {
+//         text = text + `
+//         ID: ${func.id}
+//         Nome: ${func.nome}
+//         Professor: ${func.professor}
+//         ---------------------------`; // nao conheço muito o uso da crase' e do ${}, pesquisar sobre.
+//     });
+//     alert(text)
+// }
 
 // -------------------------------
 
@@ -110,7 +93,18 @@ function exclusao(i){
 }
 
 function alteracao(i){
-    disciplinas[i].alterar();
+    let boxAlterar = document.getElementById("box-alterar")
+    boxAlterar.style.display = "flex";
+   let btn3 = document.getElementById("btn3");
+   btn3.onclick = function(i, boxAlterar){
+    let novoNome = document.getElementById("novoNome").value;
+    let novoProfessor = document.getElementById("novoProfessor").value;
+    let novoCurso = document.getElementById("novoCurso").value;
+    
+    disciplinas[i].alterar(novoNome, novoProfessor, novoCurso)
 
-    atualizarTabela();
+    boxAlterar.style.display = "none";
+   }
+   atualizarTabela();
 }
+

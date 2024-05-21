@@ -11,20 +11,20 @@
 <body>
     <h1>Formulário Infnet</h1>
     <p>Cadastrando disciplinas</p>
-    <form action="">
+    <form>
         <div class="form-content">
             <label>Disciplina:</label>
-            <input type="text" placeholder="Informe o nome da disciplina" id="disciplina" class="form-input">
+            <input type="text" placeholder="Informe o nome da disciplina" id="disciplina" class="form-input" value="HTML">
         </div>
 
         <div class="form-content">
             <label>Professor:</label>
-            <input type="text" placeholder="Informe o nome do professor" id="professor" class="form-input">
+            <input type="text" placeholder="Informe o nome do professor" id="professor" class="form-input" value="Francisco">
         </div>
 
         <div class="form-content">
             <label>Curso:</label>
-            <input type="text" placeholder="Informe o nome do curso" id="curso" class="form-input">
+            <input type="text" placeholder="Informe o nome do curso" id="curso" class="form-input" value="ADS">
         </div>
 
         <div class="form-content">
@@ -32,18 +32,42 @@
         </div>
     </form>
     <hr>
-    <table>
-        <thead>
-            <th>ID</th>
-            <th>Disciplina</th>
-            <th>Professor(a)</th>
-            <th>Curso</th>
-            <th>Alterar</th>
-            <th>Excluir</th>
-        </thead>
-        <tbody id="main-tabela"></tbody>
-    </table>
+    <section id="section-tabela">
+        <table>
+            <thead>
+                <th>ID</th>
+                <th>Disciplina</th>
+                <th>Professor(a)</th>
+                <th>Curso</th>
+                <th>Alterar</th>
+                <th>Excluir</th>
+            </thead>
+            <tbody id="main-tabela"></tbody>
+        </table>
+    </section>
+    <div>
+        <form id="box-alterar" class="mini-form">
+            <h2>Altere as informações</h2>
+            <div class="form-content">
+                <label>Altere a Disciplina:</label>
+                <input type="text" id="novoNome" class="form-input">
+            </div>
+    
+            <div class="form-content">
+                <label>Altere o professor:</label>
+                <input type="text" id="novoProfessor" class="form-input">
+            </div>
+    
+            <div class="form-content">
+                <label>Altere o curso:</label>
+                <input type="text" id="novoCurso" class="form-input">
+            </div>
 
+            <div class="form-content">
+                <input type="button" value="Salvar" id="btn3" class="form-btn">
+            </div>
+        </form>
+    </div>
     <script src="atividade.js"></script>
 </body>
 

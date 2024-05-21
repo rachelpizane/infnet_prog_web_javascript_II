@@ -62,6 +62,9 @@ label{
     background-color: rgb(231, 57, 57);
     transition: 300ms;
 }
+#section-tabela{
+    display: none;
+}
 
 table {
     padding: 1rem 0;
@@ -101,5 +104,19 @@ tbody tr:nth-child(even){
 .table-btn:hover {
     background-color: rgb(32, 127, 190);
     transition: 300ms;
+}
+
+.mini-form{
+    flex-direction: column;
+    border: 1px solid #757575;
+    position: fixed;
+    top: 5%;
+    left: 35%;
+    background-color: #fff;
+    padding: 1rem;
+    text-align: left;
+    align-items: flex-start;
+    border-radius: .25rem;
+    display: none;
 }
 

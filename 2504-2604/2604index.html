@@ -28,17 +28,37 @@
 
               <div class="col">
                 <label>Curso</label>
-                <input type="text" class="form-control" placeholder="Curso" id="curso" value="curso">
+                <select id="curso" class="form-select"> //Abre um menu de suspensão aonde o usuário pode selecionar uma das opções.
+                  <option disabled selected value="">Selecione o curso</option> 
+                  /*
+                  - Tag option marca o conteudo que será renderizado como uma das opções dentro da lista de suspensando. 
+                  - O atributo "disabled" faz com que o elemento nao possa ser selecionado.
+                  - o atributo "selected" faz com que a opção esteja selecionada quando a pagina renderizar
+                  */
+                </select>
               </div>
 
               <div class="col">
                 <button type="button" class="btn btn-primary" id="btn">Incluir</button>
+
               </div>
             </div>
         </form>
     </div>
     <hr>
-    <div class="container mt-3">
+    <h3>Listagem de disciplina</h3>
+    <select id="curso-filtro" class="form-select" onchange="filtrarPorCurso()"> 
+      <option value="">Todos</option>
+      <option value="ADS">ADS</option>
+      <option value="Engenharia">Engenharia</option>
+    </select>
+
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Pesquisar disciplinas" value="java" id="pesquisaInput">
+      <button class="btn btn-outline-secondary" type="button" onclick="pesquisarDisciplinas()">Pesquisar</button>
+    </div>
+
+    <div  id="div-disciplinas"  class="container mt-3">
         <table class="table table-striped">
           <thead>
             <tr>
@@ -53,6 +73,16 @@
           <tbody id="main-tabela">
           </tbody>
         </table>
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="#" onclick="anterior()">Anterior</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link"href="#" onclick="proximo()">Próximo</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     <script src="2604script.js"></script>
 </body>
