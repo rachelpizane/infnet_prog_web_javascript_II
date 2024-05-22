@@ -14,6 +14,10 @@ function validarCamposObrigatorio(produto, quantidade, preco, data){
     // Não se esqueça, código curto nao significa melhor. As vezes até é pior pois quem ve de fora e bate nesse codigo pode ter um delay até entender o que está acontecendo.
 }
 
+function validarQuantidadeProdutos(quantidade){
+    return quantidade > 0 ? true : false
+} //O ideal é criar uma função para cada tipo de validação.
+
 function registrarVenda(){
     let produto = "Refrigerante";
     let quantidade = 2;
@@ -21,13 +25,17 @@ function registrarVenda(){
     let data = "2023-06-01";
 
     let validaCampos = validarCamposObrigatorio(produto, quantidade, preco, data);
-
-    console.log(validaCampos)
-
+    let validaProdutos = validarQuantidadeProdutos(quantidade)
+    
     if(validaCampos){
-        alert(produto + quantidade + preco + data)
+        if(validaProdutos){
+            alert(`Venda registrada com sucesso! \nProduto: ${produto} \nQuantidade: ${quantidade} $\nPreço: ${preco.toFixed(2)} \nData: ${data}`)
+        } else{
+            alert("Problema na validação da quantidade de produtos")
+        }
+        
     } else{
-        alert("Problema na venda!")
+        alert("Problema na validação dos campos obrigatórios")
     }
 }
 
