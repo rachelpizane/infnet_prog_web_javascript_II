@@ -24,24 +24,12 @@ const estoque ={
 
 
 function validarCamposObrigatorio(produto, quantidade, preco, data){
-    /*Versão completa
-    if(produto && quantidade && preco && data){
-         return true;
-    } else {
-        return false;
-    } */
-
-    /*Versão ternário - Gostei dessa
-    return produto && quantidade && preco && data ? true : false;*/
-
-    // Versão mais encurtada:
-    return produto && quantidade != null && preco != null && data // O resultado de uma condição já é um booleano.
-    // Não se esqueça, código curto nao significa melhor. As vezes até é pior pois quem ve de fora e bate nesse codigo pode ter um delay até entender o que está acontecendo.
-}
+    return produto && quantidade != null && preco != null && data 
+} // OK
 
 function validarQuantidadeProdutos(quantidade){
     return quantidade > 0 ? true : false
-} //O ideal é criar uma função para cada tipo de validação;
+} 
 
 function validarPrecoUnitario(preco){
     return !isNaN(preco) && preco > 0;
@@ -65,7 +53,7 @@ function atualizarEstoque(produto, quantidade){
 
 function obterDataTransacao(){
     return new Date().toLocaleString();
-} // Não é necessario criar uma função para tudo, mas para reforçar o entendimento, faremos assim por agora.
+} //ok
 
 function gerarNumeroTransacao(){
     return Math.floor(Math.random() * 1000000)
@@ -85,7 +73,7 @@ function registrarVenda(produto, quantidade ,preco){
     let validaEstoque = validarEstoque(produto, quantidade);
     
     if(validaCampos){
-        if(validaQuantidade){ // Separamos os ifs pois se caso a validação seja falsa, cada um retornará um alert diferente.
+        if(validaQuantidade){
             if(validaPreco){
                 if(validaEstoque){
 
