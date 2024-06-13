@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navegação</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: rgb(248, 217, 222);
+        }
+
+        main {
+            width: fit-content;
+        }
+
+        table {
+            background-color: whitesmoke;
+            margin: .5rem 0;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid rgb(63, 61, 61);
+            border-collapse: collapse;
+            padding: .5rem .5rem;
+            text-align: center;
+        }
+
+        .grupo-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .botao-nav{
+            padding: .15rem .2rem;
+        }
+
+        .stay-right {
+            justify-content: flex-end;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Treinando funcionalidades de navegação</h1>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                </tr>
+            </thead>
+            <tbody id="table"></tbody>
+        </table>
+        <div id="grupoNav" class="grupo-nav">
+            <button id="botaoNavAnterior" class="botao-nav hidden" onclick="anterior()">Anterior</button>
+            <button id="botaoNavProximo" class="botao-nav hidden" onclick="proximo()">Próximo</button>
+        </div>
+    </main>
+    <script>
+        let pessoas = [
+            { nome: "João", idade: 25 },
+            { nome: "Maria", idade: 30 },
+            { nome: "Carlos", idade: 22 },
+            { nome: "Ana", idade: 28 },
+            { nome: "Pedro", idade: 27 },
+            { nome: "Juliana", idade: 26 },
+            { nome: "Rafael", idade: 24 },
+            { nome: "Fernanda", idade: 29 }
+        ];
+
+        function atualizarTabela() {
+            let tbody = document.getElementById("table");
+
+            let posInicio = (pagAtual - 1) * qntdPorPag;
+            let posFim = posInicio + qntdPorPag;
+
+            pessoasAtualizado = pessoas.slice(posInicio, posFim)
+
+            tbody.innerHTML = "";
+            pessoasAtualizado.forEach(pessoa => {
+                let tr = document.createElement("tr");
+                for (i in pessoa) {
+                    let td = document.createElement("td");
+                    td.innerText = pessoa[i];
+                    tr.appendChild(td);
+                }
+                tbody.appendChild(tr)
+            })
+        }
+
+        let botaoNavAnterior = document.getElementById("botaoNavAnterior").classList;
+        let botaoNavProximo = document.getElementById("botaoNavProximo").classList;
+        let grupoNav = document.getElementById("grupoNav").classList;
+
+        let pagAtual = 1;
+        let qntdPorPag = 3;
+        let totalPag = Math.ceil(pessoas.length / qntdPorPag)
+
+
+        function atualizarNavegacao() {
+            if (totalPag > 1) {
+                if (pagAtual === 1) {
+                    // anterior invisivel
+                    // proximo aparece
+                    botaoNavAnterior.add("hidden");
+                    botaoNavProximo.remove("hidden");
+                    grupoNav.add("stay-right");
+
+                } else if (pagAtual < totalPag) {
+                    // anterior aparece
+                    // proximo aparece
+                    botaoNavProximo.remove("hidden");
+                    botaoNavAnterior.remove("hidden");
+
+                    grupoNav.remove("stay-right");
+                } else if (pagAtual === totalPag) {
+                    // anterior aparece
+                    // proximo inivisivel
+                    botaoNavAnterior.remove("hidden");
+                    botaoNavProximo.add("hidden");
+                }
+            }
+        }
+
+        function anterior() {
+            if (pagAtual > 1) {
+                pagAtual--
+                atualizarTabela()
+                atualizarNavegacao()
+            }
+        }
+
+        function proximo() {
+            if (pagAtual < totalPag) {
+                pagAtual++
+                atualizarTabela()
+                atualizarNavegacao()
+            }
+        }
+
+        // ----
+        atualizarTabela();
+        atualizarNavegacao()
+
+    </script>
+</body>
+
+</html>

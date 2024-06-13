@@ -22,6 +22,7 @@ const estoque ={
     },
 };
 
+
 function validarCamposObrigatorio(produto, quantidade, preco, data){
     /*Versão completa
     if(produto && quantidade && preco && data){
@@ -40,7 +41,7 @@ function validarCamposObrigatorio(produto, quantidade, preco, data){
 
 function validarQuantidadeProdutos(quantidade){
     return quantidade > 0 ? true : false
-} //O ideal é criar uma função para cada tipo de validação. Você encap
+} //O ideal é criar uma função para cada tipo de validação;
 
 function validarPrecoUnitario(preco){
     return !isNaN(preco) && preco > 0;
@@ -125,7 +126,7 @@ function vender(){
     let produto = document.getElementById("produto").value
     let quantidade = document.getElementById("quantidade").value
     let preco = document.getElementById("preco").value
-    
+    console.log(produto)
     let mensagem = registrarVenda(produto, quantidade, preco);
 
     registrarHistorico(mensagem)
