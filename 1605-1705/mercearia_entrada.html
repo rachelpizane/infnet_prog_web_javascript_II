@@ -29,10 +29,10 @@
                     <input type="number" class="form-control" id="quantidade" placeholder="Entre com a quantidade" value="10">
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" id="motivo" placeholder="Entre com o motivo" value="Entrada de produto">
+                    <input type="text" class="form-control" id="motivo" placeholder="Entre com o motivo">
                 </div>
                 <div class="col">
-                    <button type="button" class="btn btn-primary" onclick="adicionarEstoque()">Adicionar</button>
+                    <button type="button" class="btn btn-primary" onclick="capturarDadosEntrada()">Adicionar</button>
                 </div>
             </div>
         </form>
@@ -45,6 +45,7 @@
             <thead>
                 <tr>
                     <th>Produto</th>
+                    <th>Descrição</th>
                     <th>Quantidade</th>
                     <th>Preço</th>
                     <th>Histórico</th>

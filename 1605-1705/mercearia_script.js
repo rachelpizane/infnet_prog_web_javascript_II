@@ -1,5 +1,43 @@
-function validarCamposObrigatorio(produto, quantidade, preco){
-    if(produto && quantidade && preco){
+const estoque = {
+    "Churrasco": {
+        "descricao": "churrasco do Elberth",
+        "qtde": 10,
+        "preco": 30.00,
+        "limite": 5,
+        "historico": []
+      },
+      "Bauru": {
+        "descricao": "bauru do Elberth",
+        "qtde": 15,
+        "preco": 18.00,
+        "limite": 18,
+        "historico": []
+      },
+      "Empada": {
+        "descricao": "empada do Elberth",
+        "qtde": 20,
+        "preco": 15.00,
+        "limite": 12,
+        "historico": []
+      },
+      "Cachorro-quente": {
+        "descricao": "cachorro-quente do Elberth",
+        "qtde": 25,
+        "preco": 12.50,
+        "limite": 30,
+        "historico": []
+      }
+}
+
+/* 
+- Em javascript podemos definir as propriedades entre aspas ou não. Sendo obrigatorio o seu uso quando forem palavras com caracteres especiais(espaços, hifens, etc...)
+- JSON não é uma linguagem de programação
+- JSON é um tipo de anotação para transferência de dados que segue um padrão especifico
+-Sua estrutura clara e padronizada facilita a troca de dados entre diferentes sistemas e linguagens de programação, tornando-o uma escolha popular para APIs e configurações.
+*/
+
+function validarNomeProduto(produto){
+    if(produto && produto in estoque){
         return true
     }
     return false
@@ -19,11 +57,15 @@ function validarCamposObrigatorio(produto, quantidade, preco){
 }
 
 function validarQuantidadeProdutos(quantidade){
-    return quantidade > 0;
+    return quantidade > 0 && quantidade;
 } //O ideal é criar uma função para cada tipo de validação;
 
 function validarPrecoUnitario(preco){
-    return preco > 0;
+    return preco > 0 && preco;
+}
+
+function validarMotivo(){
+    return motivo;
 }
 
 function obterDataTransacao(){
@@ -56,15 +98,17 @@ function registrarVenda(produto, quantidade, preco){
     let data = obterDataTransacao();
     let numTransacao = obterNumeroTransacao();
 
-    let validaCampos = validarCamposObrigatorio(produto, quantidade, preco);
+    let validaNome = validarNomeProduto(produto);
     let validaQuantidade = validarQuantidadeProdutos(quantidade);
     let validaPreco = validarPrecoUnitario(preco);
 
-    if(validaCampos){
+    if(validaNome){
         if(validaQuantidade){ 
             // Separamos os ifs pois se caso a validação seja falsa, cada um retornará um alert diferente.
 
             if(validaPreco){
+                atualizarEstoque(produto, quantidade);
+                atualizarTabelaEstoque();
                 return {
                     isSucess: true, // Foi sucesso? Sim!
                     mensagem: "Produto vendido com sucesso! [Número da Transação: " + numTransacao  + "] - Produto: " + produto + " - Quantidade: " + quantidade + " - Preço: R$" + Number(preco).toFixed(2) + " - Data: " + data + "." 
@@ -113,3 +157,52 @@ function registrarHistorico(isSucess, mensagem){
         }, 7000) // A chamada desaparecerá em 7 segundos.
     }
 }
+
+function capturarDadosEntrada(){
+    //Aqui capturaremos as informações de entrada.
+    let produto = document.getElementById("produto").value;
+    let quantidade = document.getElementById("quantidade").value;
+    let motivo = document.getElementById("motivo").value;
+
+    registrarEntrada(produto, quantidade, motivo)
+}
+
+function registrarEntrada(){
+
+}
+
+function registrarHistoricoEntrada(){
+}
+
+
+function atualizarEstoque(produto, quantidade){
+    //RN.07 - Atualização Automática do Estoque
+    estoque[produto].qtde -= quantidade;
+}
+
+function atualizarTabelaEstoque(){
+    // RN.08 - Identificação de Produtos com Baixo Estoque
+    let tabela = document.getElementById("tabelaEstoque");
+    tabela.innerHTML = "";
+    
+    for(let produto in estoque){ // ex: produto === Churrasco
+        const meuProduto = estoque[produto]; //ex: estoque[Churrasco]
+
+        let limite = meuProduto.qtde < meuProduto.limite ? "img/flag-green.png" : "img/flag-red.png"
+
+        let novaLinha = document.createElement("tr");
+        novaLinha.innerHTML = `
+        <td>${produto}</td> 
+        <td>${meuProduto.descricao}</td>
+        <td>${meuProduto.qtde}</td>
+        <td>R$ ${meuProduto.preco}</td>
+        <td>${meuProduto.historico.length}</td>
+        <td><img src=${limite}></td>
+        `
+        tabela.appendChild(novaLinha)
+    }
+} // Estamos atualizando e exibindo a tabela com os dados de cada produto no "mercearia_entrada.html"
+
+document.addEventListener("DOMContentLoaded", function (){
+    atualizarTabelaEstoque()
+})
