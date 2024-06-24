@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Expressões regulares, ou regex (do inglês, regular expressions), são padrões utilizados para fazer correspondências de caracteres dentro de strings. -->
+    <script>
+        let regex = /oi/;
+        let msg = "oiee";
+        console.log(regex.test(msg))
+
+        // O metacaractere * corresponde a zero ou mais ocorrências do padrão anterior. (0, 1, 1+)
+        //No exemplo abaixo, ele considera o caractere "a"
+        let regex1 = /senhora*/
+        let msg1 = "senhora";
+        let msg2 = "senhor";
+        console.log(regex1.test(msg1) + " - " + regex1.test(msg2)) // true + true
+
+        //O metacaractere + corresponde a uma ou mais ocorrências do padrão anterior. (1, 1+)
+        // No exemplo abaixo ele considera o caractere i;
+        let rx = /oii+/
+        let msg3 = "oiii"
+        let msg4 = "oi"
+        console.log(rx.test(msg3) + " - " + rx.test(msg4))
+
+        // O metacaractere ? torna o padrão anterior opcional (zero ou uma ocorrência). (0, 1)
+        let rx1 = /ab?c/;
+        let msg5 = "abc";
+        let msg6 = "ac";
+        let msg7 = "abbc";
+        
+        console.log(rx1.test(msg5) + " - " + rx1.test(msg6) + " - " + rx1.test(msg7))
+
+        //O metacaractere ^ corresponde ao início da string.
+        let rx2 = /^A/;
+        let msg8 = "A ana.."
+        let msg9 = "Oi Ana!"
+        console.log(rx2.test(msg8) + " - " + rx2.test(msg9)) // true + false
+
+        //O metacaractere $ corresponde ao fim da string.
+        let rx3 = /pessoal$/;
+        let msg10 = "pessoal, bom dia!";
+        let msg11 = "bom dia pessoal";
+        console.log(rx3.test(msg10) + " - " + rx3.test(msg11)); // false + true
+
+        //Os colchetes [] definem um conjunto de caracteres.
+        //No exemplo abaixo, se a string tiver caracteres a ou b, ele dá como true;
+        let rx4 = /[ab]/
+        let rx5 = /ab/
+        let msg12 = "banana";
+        console.log(rx4.test(msg12) + " - " + rx5.test(msg12)); //true + false;
+
+        //Os parênteses () definem um grupo de captura.
+        //No exemplo abaixo, a string precisa ter o grupo de caracteres nesta ordem "bo";
+        let rx6 = /(bo)/
+        let rx7 = /[bo]/
+        let msg13 = "bom dia!";
+        let msg14 = "baiao";
+        console.log(rx6.test(msg13) + " - " + rx6.test(msg14)); // true - false
+        console.log(rx7.test(msg13) + " - " + rx7.test(msg14)); //true + true
+
+        // As chaves {} especificam um número específico de ocorrências.
+        //No exemplo abaixo, o 0 precisa ter ocorrido no mino 2 vezes seguidas.
+        let rx8 = /0{2}/;
+        let msg15 = "0101";
+        let msg16 = "000";
+        let msg17 = "0";
+        console.log(rx8.test(msg15) + " - " + rx8.test(msg16)  + " - " + rx8.test(msg17)); //false + true + false;
+
+        //A barra invertida \ escapa um metacaractere.
+        let rex9 = /\./;
+        let msg19 = "oi.";
+        console.log(rex9.test(msg19)) //true
+
+        let rex10 = /[0-9]/ // Corresponde ao conjunto de caracteres de qualquer digito de 0 a 9;
+        let msg20 = "oi23";
+        console.log(rex10.test(msg20)) // Na mensagem, tem algo digito de 0 a 9? 
+    </script>
+</body>
+</html>

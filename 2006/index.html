@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let frutas = [
+            {nome: "Maçã", valor: 10},
+            {nome: "Laranja", valor: 35},
+            {nome: "Abacaxi", valor: 23},
+        ]
+        let maiorValor = frutas.find(fruta => fruta.valor > 20) // retorna o primeio valor que satisfaça a condição
+
+        alert(JSON.stringify(maiorValor, null,2)) // pesquisar mais sobre. Ele permite exibir um objeto, mas nao entendi o null e o 2.
+
+        let maioresValores = frutas.filter(fruta => fruta.valor > 20); // retorna todos os valores que satisfaça a condição, criando um novo vetor.
+
+        alert(JSON.stringify(maioresValores, null,2))
+
+        // let novasFrutas = frutas.map(fruta => fruta.valor * 2) // Se for feito dessa forma, ele irá só pegar o valor mudado, como se escreve em cima do valor atual ({nome: nome.fruta, valor: fruta.valor}); // ficou confuso nao seguimos retornar todo o objeto, pesquisar mais sobre isso. 
+    
+
+        let soma = frutas.reduce((acumulador, fruta) => acumulador + fruta.valor, 0); // esse é perfeitooooo. desenvolver mais.
+
+        let media = soma / frutas.length
+
+        
+
+    </script>
+</body>
+</html>
