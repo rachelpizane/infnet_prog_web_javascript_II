@@ -9,9 +9,9 @@ function incluirNavBar(){
     }
     
     linksNav = [
-        new classLink("mercearia_venda.html", "Venda"),
-        new classLink("mercearia_entrada.html", "Entrada"),
-        new classLink("mercearia_movimentacao.html", "Movimentação"),
+        new classLink("venda.html", "Venda"),
+        new classLink("entrada.html", "Entrada"),
+        new classLink("movimentacao.html", "Movimentação"),
     ]
     
     let header = document.getElementById("divNavBar")

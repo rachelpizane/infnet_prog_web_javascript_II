@@ -1,72 +1,11 @@
-const estoque = {
-  Churrasco: {
-    descricao: "churrasco do Elberth",
-    qtde: 10,
-    preco: 30.0,
-    limite: 5,
-    historico: [],
-  },
-  Bauru: {
-    descricao: "bauru do Elberth",
-    qtde: 15,
-    preco: 18.0,
-    limite: 18,
-    historico: [],
-  },
-  Empada: {
-    descricao: "empada do Elberth",
-    qtde: 20,
-    preco: 15.0,
-    limite: 12,
-    historico: [],
-  },
-  "Cachorro-quente": {
-    descricao: "cachorro-quente do Elberth",
-    qtde: 25,
-    preco: 12.5,
-    limite: 30,
-    historico: [],
-  },
-};
+import * as validacao from "./validacao.js";
+import { carregarEstoque} from "./estoque.js";
 
-/* 
-- Em javascript podemos definir as propriedades entre aspas ou não. Sendo obrigatorio o seu uso quando forem palavras com caracteres especiais(espaços, hifens, etc...)
-- JSON não é uma linguagem de programação
-- JSON é um tipo de anotação para transferência de dados que segue um padrão especifico
--Sua estrutura clara e padronizada facilita a troca de dados entre diferentes sistemas e linguagens de programação, tornando-o uma escolha popular para APIs e configurações.
-*/
+export let estoque = carregarEstoque(); 
 
-function validarNomeProduto(produto) {
-  if (produto && produto in estoque) {
-    return true;
-  }
-  return false;
-  /*Versão completa
-    if(produto && quantidade && preco && data){
-         return true;
-    } else {
-        return false;
-    } */
-
-  /*Versão ternário - Gostei dessa
-    return produto && quantidade && preco && data ? true : false;*/
-
-  // Versão mais encurtada:
-  // return produto && quantidade != null && preco != null && data -> O resultado de uma condição já é um booleano.
-  // Não se esqueça, código curto nao significa melhor. As vezes até é pior pois quem ve de fora e bate nesse codigo pode ter um delay até entender o que está acontecendo.
-}
-
-function validarQuantidadeProdutos(quantidade) {
-  return quantidade > 0 && quantidade;
-} //O ideal é criar uma função para cada tipo de validação;
-
-function validarPrecoUnitario(preco) {
-  return preco > 0 && preco;
-}
-
-function validarMotivo(motivo) {
-  return motivo;
-}
+function salvarEstoque() {
+  localStorage.setItem("mercearia-estoque", JSON.stringify(estoque));
+} // Envie o objeto estoque, convertido para string, para o local Storage, etiquetado por "mercearia-estoque". Se ele existe, atualize o seu valor, se não, crie-o.
 
 function obterDataTransacao() {
   return new Date().toLocaleString(); //retorna data e hora em forma de String, usando a configuração da locadalicaade (dd/mm/yyy, hh:mm:ss
@@ -110,9 +49,9 @@ function registrarSaida(produto, quantidade, preco) {
   let data = obterDataTransacao();
   let numTransacao = obterNumeroTransacao();
 
-  let validaNome = validarNomeProduto(produto);
-  let validaQuantidade = validarQuantidadeProdutos(quantidade);
-  let validaPreco = validarPrecoUnitario(preco);
+  let validaNome = validacao.validarNomeProduto(produto);
+  let validaQuantidade = validacao.validarQuantidadeProdutos(quantidade);
+  let validaPreco = validacao.validarPrecoUnitario(preco);
 
   if (validaNome) {
     if (validaQuantidade) {
@@ -120,20 +59,29 @@ function registrarSaida(produto, quantidade, preco) {
 
       if (validaPreco) {
         estoque[produto].historico.push({
-            tipo: "Saída",
-            numTransacao: numTransacao,
-            data: data,
-            quantidade: quantidade,
-            //   preco: preco Tirei para ficar alinhado com a entrada, pensarei  no que farei futuramente.
-          });
+          tipo: "Saída",
+          numTransacao: numTransacao,
+          data: data,
+          quantidade: quantidade,
+          //   preco: preco Tirei para ficar alinhado com a entrada, pensarei  no que farei futuramente.
+        });
 
         reduzirEstoque(produto, quantidade);
-        atualizarTabelaEstoque();
+        salvarEstoque();
         return {
           isSucess: true, // Foi sucesso? Sim!
           mensagem:
-            "Produto vendido com sucesso! [Número da Transação: " + numTransacao + "] - Produto: " + produto + " - Quantidade: " + quantidade +
- " - Preço: R$" + Number(preco).toFixed(2) + " - Data: " + data + ".",
+            "Produto vendido com sucesso! [Número da Transação: " +
+            numTransacao +
+            "] - Produto: " +
+            produto +
+            " - Quantidade: " +
+            quantidade +
+            " - Preço: R$" +
+            Number(preco).toFixed(2) +
+            " - Data: " +
+            data +
+            ".",
         };
       } else {
         return {
@@ -194,9 +142,9 @@ function registrarEntrada(produto, quantidade, motivo) {
   const data = obterDataTransacao();
   const numTransacao = obterNumeroTransacao();
 
-  const validaNome = validarNomeProduto(produto);
-  const validaQuantidade = validarQuantidadeProdutos(quantidade);
-  const validaMotivo = validarMotivo(motivo);
+  const validaNome = validacao.validarNomeProduto(produto);
+  const validaQuantidade = validacao.validarQuantidadeProdutos(quantidade);
+  const validaMotivo = validacao.validarMotivo(motivo);
 
   if (validaNome) {
     if (validaQuantidade) {
@@ -206,10 +154,11 @@ function registrarEntrada(produto, quantidade, motivo) {
           numTransacao: numTransacao,
           data: data,
           quantidade: quantidade,
-        //   motivo: motivo, Tirei para ficar alinhado com a Saida, pensarei depois no que farei futuramente.
+          //   motivo: motivo, Tirei para ficar alinhado com a Saida, pensarei depois no que farei futuramente.
         });
 
         adicionarEstoque(produto, quantidade);
+        salvarEstoque();
         atualizarTabelaEstoque();
 
         console.log(estoque[produto].historico.length);
@@ -268,11 +217,8 @@ function atualizarTabelaEstoque() {
     // ex: produto === Churrasco
     const meuProduto = estoque[produto]; //ex: estoque[Churrasco]
 
-    let limite =
-      meuProduto.qtde < meuProduto.limite
-        ? "img/flag-green.png"
-        : "img/flag-red.png";
-
+    let limite = meuProduto.qtde > meuProduto.limite ? "img/flag-green.png" : "img/flag-red.png";
+    console.log(meuProduto.qtde < meuProduto.limite)
     let novaLinha = document.createElement("tr");
     novaLinha.innerHTML = `
         <td>${produto}</td> 
@@ -286,6 +232,16 @@ function atualizarTabelaEstoque() {
   }
 } // Estamos atualizando e exibindo a tabela com os dados de cada produto no "mercearia_entrada.html"
 
-document.addEventListener("DOMContentLoaded", function () {
+window.addEventListener("DOMContentLoaded", function () {
   atualizarTabelaEstoque();
 });
+
+const btnSaida = document.getElementById("btn-saida");
+if (btnSaida) {
+  btnSaida.addEventListener("click", capturarDadosSaida);
+}
+
+const btnEntrada = document.getElementById("btn-entrada");
+if (btnEntrada) {
+  btnEntrada.addEventListener("click", capturarDadosEntrada);
+}
