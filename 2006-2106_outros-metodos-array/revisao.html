@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Outros métodos array</title>
 </head>
+
 <body>
   <script>
     //find, filter, map, reduce, JSON.stringify
-    const numeros =[9, 2, 5, 11, 7, 1]
+    const numeros = [9, 2, 5, 11, 7, 1]
 
     const pessoas = [
-      {nome: "Carla", sexo: "F", idade: 26, investimento: 1500},
-      {nome: "Fernanda", sexo: "F", idade: 21, investimento: 234},
-      {nome: "Caio", sexo: "M", idade: 28, investimento: 980},
+      { nome: "Carla", sexo: "F", idade: 26, investimento: 1500 },
+      { nome: "Fernanda", sexo: "F", idade: 21, investimento: 234 },
+      { nome: "Caio", sexo: "M", idade: 28, investimento: 980 },
     ]
 
+    console.log("--- FIND ---")
     /* Find
     - Esse método rastreia cada valor da array da esquerda para direita e retorna o primeiro valor que satisfaça a condição
     - Ele executa a condição da função callback em cada valor, se passar, retorna o valor, se não vai para o próximo.
@@ -25,14 +28,15 @@
 
     let sexoFeminino = pessoas.find(pessoa => pessoa.sexo === "F") //" Retorne o primeiro objeto que tiver o valor "F" na propriedade sexo
     console.log(sexoFeminino)
-    
-    function maiorque10(num){
+
+    function maiorque10(num) {
       return num >= 10
     }
-    
+
     let num = numeros.find(maiorque10) //"Retorne o primeiro valor que for maior ou igual a 10"
     console.log(num)
 
+    console.log("--- FILTER ---")
     /*Filter
     - Parecido com find(), mas ele cria uma array com todos os elementos que passarem no teste.
     - Se nenhum elemento satisfazer a condição, ele retorna uma array vazia.
@@ -41,12 +45,12 @@
     - Você pode remover itens indesejados de um array;
     */
     class Aluno {
-      constructor(nome, nota1, nota2){
+      constructor(nome, nota1, nota2) {
         this.nome = nome,
-        this.nota1 = nota1,
-        this.nota2 = nota2
+          this.nota1 = nota1,
+          this.nota2 = nota2
       }
-      media = function(){
+      media = function () {
         return (this.nota1 + this.nota2) / 2
       }
     };
@@ -58,17 +62,93 @@
       new Aluno("Caio", 7.8, 6.0),
       new Aluno("Eduardo", 6.1, 7.5),
     ];
-    
+
     const alunosAcimaMedia = alunos.filter(aluno => aluno.media() >= 7) // Crie uma array com todo os alunos que ficaram com a média acima de 7.0
 
-    for(aluno of alunosAcimaMedia){
+    for (aluno of alunosAcimaMedia) {
       console.log(aluno.nome)
     }
-   
-    const numeros2v = [-2, 8, -1, 5, 4, 13, 8,-7];
+
+    const numeros2v = [-2, 8, -1, 5, 4, 13, 8, -7];
     const numerosPositivo = numeros2v.filter(num => num > 0) // Crie um array com todos os numeros positivos do array "numeros2v"
 
     console.log(`Números positivos: ${numerosPositivo.join(", ")}`)
+
+    console.log("--- MAP ---")
+    /*map
+    - O método map() é usado para criar um novo array com os resultados da chamada de uma função callback para cada elemento de uma outra array.
+    - É útil quando você precisa transformar ou derivar um novo conjunto de valores a partir de um array existente.
+    - Sempre vai retornar um array com o mesmo número de elementos do array original.
+    - Muito confundido com o forEach, mas o forEach não retorna um novo array. Ele simplesmente itera sobre o array, aplicando a função callback a cada elemento, mas não retorna um novo array. 
+    */
+    const produtos = [
+      { id: 2, nome: "blusa verde", preco: 25 },
+      { id: 3, nome: "calça azul", preco: 42.5 },
+      { id: 4, nome: "boné rosa", preco: 16.9 }
+    ]
+
+    produtos.map(produto => produto.preco = produto.preco * 2) // Dobre o preço de cada produto
+
+    produtos.forEach(produto => {
+      console.log(`${produto.id} - ${produto.nome} - ${produto.preco}`)
+    });
+
+    const numbers = [20, 16, 9]
+
+    const double = numbers.map(number => number * 2); // Dobre o valor de cada número do array "numbers"
+    console.log(double)
+
+    numbers.forEach((number, i) => console.log(i + ": " + number)) // O método forEach() itera sobre cada elemento de um array e executa uma função de callback. Ele não necessariamente retorna um novo array.
+
+    // Atividade: Crie uma função que use .map() para converter as temperaturas para Fahrenheit
+    // Dica: Use a fórmula F = C * 9/5 + 32
+
+    const temperaturasEmCelsius = [0, 10, 20, 30, 40];
+
+    const temperaturasemFahrenheit = temperaturasEmCelsius.map(temperatura => temperatura * 9 / 5 + 32)
+    console.log("Temperatura em Fahrenheit: " + temperaturasemFahrenheit)
+
+    console.log("--- REDUCE ---")
+    /*reduce
+    - O método reduce() executa uma função redutora para cada elemento do array, resultando num único valor de retorno.
+    - Esse único valor pode ser qualquer tipo de dado (número, string, objeto, etc.).
+    - Sintaxe: array.reduce(function(acumulador, valor atual, indice atual), valor inicial)
+      * Acumulador:  Guarda o valor retornado na última iteração (ou o valor inicial na primeira iteração).
+      * O valor inicial é opcional. Se não for fornecido, o valor inicial será o primeiro elemento do array.
+        > Isso significa que se o valor inicial não for especificado e o acumulador for o array[0], o valor atual iniciará no array[1];
+        > Se o valor inicial for especificado, o acumulador será o valor inicial e o valor atual será o array[0].
+    */
+    const valores = [2, 4, 5, 1]
+    const total = valores.reduce((acumulador, num) => acumulador + num)
+
+    console.log(total)
+    /*1ª iteração: acumulador = 2, num = 4, resultado = 6
+      2º iteração: acumulador = 6, num = 5, resultado = 11
+      3ª iteração: acumulador = 11, num = 1, resultado = 12
+      total = 12
+    */
+
+    const total2 = valores.reduce((acc, num) => acc + `O valor é ${num} \n`, "Valores: \n") // Reduzir o array "valores" em uma string que exibe cada valor com a frase "O valor é"
+    console.log(total2)
+
+    const produtos2 = [
+      { nome: "Smartphone", preco: 500 },
+      { nome: "Tablet", preco: 300 },
+      { nome: "Laptop", preco: 1000 },
+      { nome: "Câmera", preco: 750 }
+    ];
+
+    // Atividade: Use .reduce() para encontrar o produto mais caro
+    const produtoCaro = produtos2.reduce((acc, produto) => {
+      if (produto.preco > acc.preco) {
+        return produto
+      } else {
+        return acc
+      }
+    });
+    console.log(produtoCaro)
+
   </script>
 </body>
+
 </html>
