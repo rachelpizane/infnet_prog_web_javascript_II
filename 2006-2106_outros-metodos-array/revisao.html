@@ -5,9 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Outros métodos array</title>
+  <style>
+    * {
+      border: 1px solid red
+    }
+
+    #box1 {
+      height: 200px;
+    }
+  </style>
 </head>
 
 <body>
+  <div id="box1"></div>
   <script>
     //find, filter, map, reduce, JSON.stringify
     const numeros = [9, 2, 5, 11, 7, 1]
@@ -117,6 +127,7 @@
       * O valor inicial é opcional. Se não for fornecido, o valor inicial será o primeiro elemento do array.
         > Isso significa que se o valor inicial não for especificado e o acumulador for o array[0], o valor atual iniciará no array[1];
         > Se o valor inicial for especificado, o acumulador será o valor inicial e o valor atual será o array[0].
+      - O método é muito util quando você quer somar valores, concatenar string, agrupar dados, etc.
     */
     const valores = [2, 4, 5, 1]
     const total = valores.reduce((acumulador, num) => acumulador + num)
@@ -147,7 +158,58 @@
       }
     });
     console.log(produtoCaro)
+    const box1 = document.getElementById("box1")
 
+    console.log("--- STRINGIFY ---")
+    /*Stringify
+    - O método JSON.stringify() converte um objeto ou valor em uma string JSON.
+    - Sintaxe: JSON.stringify(valor[, replacer[, space]])
+      * valor: O valor a ser convertido em uma string JSON.
+      * replacer (Opcional): Uma função que altera o processo de stringificação ou uma array que serve como uma lista de propriedades que devem ser incluídas na string JSON.
+      * space (Opcional):: Um valor que especifica a quantidade de espaço em branco a ser usada para recuo. O máximo é 10.
+    - É comum converter um objeto em uma string JSON para envia-lo a um servidor
+      * Isso ocorre porque o servidor só aceita quando os dados são enviados como texto.
+    - Também a utilizamos para armazenar os dados no armazenamento local (localStorage), que també só aceita-os em formato de texto.
+    - Observação: Para converter um JSON em um objeto, use JSON.parse().
+    */
+
+    let stringJSON = JSON.stringify(produtos2, ["nome"], 2) // Converta o array "produtos2" em uma string JSON que inclua apenas o nome dos produtos e com um espaçamento de 2 espaços
+    box1.innerText = stringJSON
+    console.log(stringJSON)
+
+    //*Exercício
+    const cart = {
+      user: "Rachel",
+      items: [
+        { name: "Laptop", price: 1500, quantity: 1 },
+        { name: "Mouse", price: 20, quantity: 2 },
+        { name: "Keyboard", price: 45, quantity: 1 }
+      ],
+      total: 1610,
+      discount: null
+    };
+
+    function replacerDiscount(key, value) {
+      if (key == "discount" && value == null) {
+        return "Nenhum";
+      }
+
+      return value;
+    }
+
+    //Parte 1: Use o método JSON.stringify() para converter o objeto cart em uma string JSON e armazene essa string em uma variável chamada jsonCart
+    let jsonCart = JSON.stringify(cart);
+    console.log(jsonCart)
+    // Parte 2: Modifique o processo de conversão para que apenas as propriedades user e total sejam incluídas na string JSON.
+    jsonCart = JSON.stringify(cart, ["user", "total"])
+    console.log(jsonCart)
+    // Parte 3: Adicione um espaçamento de 4 espaços na string JSON para que ela seja formatada de maneira legível.
+    jsonCart = JSON.stringify(cart, null, 4)
+    console.log(jsonCart)
+
+    //Parte 4: Desafio extra! Use uma função replacer para substituir o valor da propriedade discount para "Nenhum" caso seja null durante a conversão.
+    jsonCart = JSON.stringify(cart, replacerDiscount, 4)
+    console.log(jsonCart)
   </script>
 </body>
 
